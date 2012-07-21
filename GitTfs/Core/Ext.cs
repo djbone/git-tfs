@@ -130,5 +130,14 @@ namespace Sep.Git.Tfs.Core
         public static StreamWriter WithDefaultEncoding(this StreamWriter stream) {
             return new StreamWriter(stream.BaseStream, Encoding.Default);
         }
+
+        public static StreamWriter WithUTF8Encoding(this StreamWriter stream) {
+          return new StreamWriter(stream.BaseStream, new UTF8Encoding(encoderShouldEmitUTF8Identifier: false));
+        }
+
+        public static StreamReader WithUTF8Encoding(this StreamReader stream)
+        {
+           return new StreamReader(stream.BaseStream, new UTF8Encoding(encoderShouldEmitUTF8Identifier: false));
+        }
     }
 }

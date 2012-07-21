@@ -157,7 +157,7 @@ namespace Sep.Git.Tfs.Core
                               {
                                   AssertValidCommand(command);
                                   var process = Start(command, RedirectStdin);
-                                  action(process.StandardInput.WithDefaultEncoding());
+                                  action(process.StandardInput.WithUTF8Encoding());
                                   Close(process);
                               });
         }
@@ -168,8 +168,7 @@ namespace Sep.Git.Tfs.Core
                               {
                                   AssertValidCommand(command);
                                   var process = Start(command, Ext.And<ProcessStartInfo>(RedirectStdin, RedirectStdout));
-                                  var encoding = new UTF8Encoding(false);
-                                  interact(new StreamWriter(process.StandardInput.BaseStream, encoding), new StreamReader(process.StandardOutput.BaseStream, encoding));
+                                  interact(process.StandardInput.WithUTF8Encoding(), process.StandardOutput.WithUTF8Encoding());
                                   Close(process);
                               });
         }
